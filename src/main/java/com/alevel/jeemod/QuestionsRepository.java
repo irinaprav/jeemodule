@@ -34,36 +34,6 @@ public class QuestionsRepository {
         }
     }
 
-    public void update(Questions questions) throws QuestionsException {
-        String sql = "UPDATE todos SET text = ?, is_done = ? WHERE id = ?";
-        try(Connection connection = dataSource.getConnection();
-            PreparedStatement query = connection.prepareStatement(sql)
-        ) {
-            query.setString(1, questions.getAnswer());
-            query.setString(2, questions.getQuestion());
-            query.setLong(3, questions.getId());
-            query.executeUpdate();
-        } catch (SQLException e) {
-            throw new QuestionsException(e);
-        }
-    }
-
-    public void batchUpdate(Iterable<Questions> batch) throws QuestionsException {
-        String sql = "UPDATE todos SET text = ?, is_done = ? WHERE id = ?";
-        try(Connection connection = dataSource.getConnection();
-            PreparedStatement query = connection.prepareStatement(sql)
-        ) {
-            for (Questions questions : batch) {
-                query.setString(1, questions.getAnswer());
-                query.setString(2, questions.getQuestion());
-                query.setLong(3, questions.getId());
-                query.addBatch();
-            }
-            query.executeBatch();
-        } catch (SQLException e) {
-            throw new QuestionsException(e);
-        }
-    }
 
     public String getAnswer(String question) throws QuestionsException {
         String sql = "SELECT answer FROM q_answers WHERE question = ?";
@@ -73,7 +43,7 @@ public class QuestionsRepository {
         ) {
            query.setString(1,question);
             ResultSet resultSet = query.executeQuery();
-            if (!resultSet.next()) throw new QuestionsException("sdfs");
+            if (!resultSet.next()) throw new QuestionsException("there is no such element");
             resultSet.first();
             respAnswer = resultSet.getString("answer");
         } catch (SQLException e) {
@@ -82,24 +52,5 @@ public class QuestionsRepository {
         return respAnswer;
     }
 
-//    public List<Questions> listAllNotDone() throws QuestionsException {
-//        String sql = "SELECT * FROM todos WHERE is_done = false";
-//        try(Connection connection = dataSource.getConnection();
-//            PreparedStatement query = connection.prepareStatement(sql)
-//        ) {
-//            ResultSet resultSet = query.executeQuery();
-//            List<Todo> todos = new LinkedList<>();
-//            while (resultSet.next()) {
-//                todos.add(new Todo(
-//                        resultSet.getLong("id"),
-//                        resultSet.getString("text"),
-//                        false
-//                ));
-//            }
-//            return todos;
-//        } catch (SQLException e) {
-//            throw new TodoException(e);
-//        }
-//    }
 
 }

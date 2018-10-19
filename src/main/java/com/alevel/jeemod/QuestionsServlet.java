@@ -66,5 +66,8 @@ public class QuestionsServlet extends HttpServlet {
         resp.setStatus(HttpServletResponse.SC_CREATED);
     }
 
-
+    @Override
+    public void destroy() {
+        dataSource.close();
+    }
 }
