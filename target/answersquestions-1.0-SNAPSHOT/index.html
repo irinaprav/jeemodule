@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Questions</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 <body>
+    <form class="questionsblock">
+            <center><label>Type Your Question</label></center>
+            <input type="text" id="question" placeholder="type question..">
+            <input type="text" id="myanswer" placeholder="type answer..">
+            <input type="button" id="button-search" value="Search">
 
-    <div>
-        <input type="text" id="question" placeholder="type question..">
-        <input type="text" id="myanswer" placeholder="type question..">
-        <input type="button" id="button-search" value="Search">
-    </div>
-
-    <input type="text" id="answer">
-    <script src="script.js"></script>
+            <input type="text" id="answer" readonly>
+    </form>
+    <script src="./script.js" type="text/javascript"></script>
 </body>
 </html>
